@@ -677,38 +677,54 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // ========================================
-  // Privacy Policy Modal
+  // Dark Mode Toggle
   // ========================================
-  const privacyModal = document.getElementById('privacyModal');
-  const privacyPolicyLink = document.getElementById('privacyPolicyLink');
-  const privacyModalClose = document.getElementById('privacyModalClose');
+  const darkModeToggle = document.getElementById('darkModeToggle');
 
-  if (privacyPolicyLink && privacyModal && privacyModalClose) {
-    privacyPolicyLink.addEventListener('click', (e) => {
-      e.preventDefault();
-      privacyModal.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    });
+  if (darkModeToggle) {
+    // Get site-specific storage key (must match the key in head script)
+    const getStorageKey = () => {
+      const metaBusinessName = document.querySelector('title')?.textContent?.split(' - ')[0] || 'default';
+      return 'siteTheme_' + metaBusinessName.replace(/[^a-zA-Z0-9]/g, '_');
+    };
 
-    privacyModalClose.addEventListener('click', () => {
-      privacyModal.classList.remove('active');
-      document.body.style.overflow = '';
-    });
+    // Detect the site's base theme (color, light, or dark)
+    const defaultTheme = '{{default_theme}}';
 
-    // Close on overlay click
-    const privacyOverlay = privacyModal.querySelector('.privacy-modal__overlay');
-    if (privacyOverlay) {
-      privacyOverlay.addEventListener('click', () => {
-        privacyModal.classList.remove('active');
-        document.body.style.overflow = '';
-      });
-    }
+    darkModeToggle.addEventListener('click', () => {
+      const storageKey = getStorageKey();
 
-    // Close on Escape key
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && privacyModal.classList.contains('active')) {
-        privacyModal.classList.remove('active');
-        document.body.style.overflow = '';
+      // Remove init class on first toggle to allow transitions
+      document.documentElement.classList.remove('dark-mode-init');
+
+      if (defaultTheme === 'color') {
+        // Color mode sites: toggle between color-mode and dark-mode (no plain light mode)
+        const isDark = document.documentElement.classList.contains('dark-mode');
+        if (isDark) {
+          // Switch back to color mode
+          document.documentElement.classList.remove('dark-mode');
+          document.body.classList.remove('dark-mode');
+          document.documentElement.classList.add('color-mode');
+          document.body.classList.add('color-mode');
+          localStorage.setItem(storageKey, 'color');
+        } else {
+          // Switch to dark mode
+          document.documentElement.classList.remove('color-mode');
+          document.body.classList.remove('color-mode');
+          document.documentElement.classList.add('dark-mode');
+          document.body.classList.add('dark-mode');
+          localStorage.setItem(storageKey, 'dark');
+        }
+      } else {
+        // Light/Dark mode sites: toggle between light and dark
+        document.documentElement.classList.toggle('dark-mode');
+        document.body.classList.toggle('dark-mode');
+
+        if (document.documentElement.classList.contains('dark-mode')) {
+          localStorage.setItem(storageKey, 'dark');
+        } else {
+          localStorage.setItem(storageKey, 'light');
+        }
       }
     });
   }
