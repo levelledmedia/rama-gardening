@@ -2462,51 +2462,135 @@ body.tall-header .header__nav-bar {
 }
 
 /* ========================================
-   DARK MODE STYLES
+   PRIVACY POLICY MODAL
    ======================================== */
 
-/* Dark Mode Toggle Button */
-.dark-mode-toggle {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  display: inline-flex;
+.privacy-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
   align-items: center;
-  gap: var(--sp-2);
-  padding: var(--sp-2) var(--sp-3);
-  border-radius: var(--r-sm);
+  justify-content: center;
+  padding: var(--sp-6);
+}
+
+.privacy-modal.active {
+  display: flex;
+}
+
+.privacy-modal__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+}
+
+.privacy-modal__content {
+  position: relative;
+  background: var(--n-000);
+  border-radius: var(--r-xl);
+  max-width: 700px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: var(--sp-10) var(--sp-8);
+  box-shadow: var(--sh-float);
+  z-index: 1;
+}
+
+.privacy-modal__close {
+  position: absolute;
+  top: var(--sp-6);
+  right: var(--sp-6);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--n-100);
+  border: none;
+  display: grid;
+  place-items: center;
+  color: var(--n-600);
+  cursor: pointer;
   transition: all 0.2s ease;
-  color: rgba(255, 255, 255, 0.6);
-  font-size: var(--fs-xs);
-  vertical-align: middle;
 }
 
-.dark-mode-toggle:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.9);
+.privacy-modal__close:hover {
+  background: var(--n-200);
+  color: var(--n-900);
 }
 
-.dark-mode-toggle__icon {
-  width: 16px;
-  height: 16px;
-  transition: all 0.3s ease;
+.privacy-modal__title {
+  font: var(--fw-heading) 32px / var(--lh-snug) var(--font-headings);
+  color: var(--n-900);
+  margin-bottom: var(--sp-6);
+  padding-right: var(--sp-12);
 }
 
-.dark-mode-toggle__icon--sun {
-  display: block;
+.privacy-modal__body {
+  color: var(--n-600);
+  font-size: var(--fs-md);
+  line-height: var(--lh-normal);
 }
 
-.dark-mode-toggle__icon--moon {
-  display: none;
+.privacy-modal__body h3 {
+  font: 600 20px / var(--lh-snug) var(--font-headings);
+  color: var(--n-900);
+  margin-top: var(--sp-6);
+  margin-bottom: var(--sp-3);
 }
 
-body.dark-mode .dark-mode-toggle__icon--sun {
-  display: none;
+.privacy-modal__body h3:first-of-type {
+  margin-top: var(--sp-4);
 }
 
-body.dark-mode .dark-mode-toggle__icon--moon {
-  display: block;
+.privacy-modal__body p {
+  margin-bottom: var(--sp-4);
 }
+
+.privacy-modal__body ul {
+  list-style: disc;
+  padding-left: var(--sp-6);
+  margin-bottom: var(--sp-4);
+}
+
+.privacy-modal__body li {
+  margin-bottom: var(--sp-2);
+  color: var(--n-600);
+}
+
+/* Dark Mode - Privacy Modal */
+body.dark-mode .privacy-modal__content {
+  background: #0A0A0A;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .privacy-modal__title {
+  color: var(--n-900);
+}
+
+body.dark-mode .privacy-modal__body h3 {
+  color: var(--n-900);
+}
+
+body.dark-mode .privacy-modal__body,
+body.dark-mode .privacy-modal__body li {
+  color: var(--n-600);
+}
+
+body.dark-mode .privacy-modal__close {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--n-600);
+}
+
+body.dark-mode .privacy-modal__close:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: var(--n-900);
+}
+
+/* ========================================
+   DARK MODE STYLES
+   ======================================== */
 
 /* Dark Mode Color Variables */
 html.dark-mode,
@@ -2974,11 +3058,6 @@ body.color-mode .split__media--tall img {
 
 body.color-mode .split--reverse .split__media--tall img {
   transform: none !important;
-}
-
-/* Color Mode - Hide the day/night toggle (no light mode exists in color mode) */
-body.color-mode .dark-mode-toggle {
-  display: none;
 }
 
 /* Color Mode - Benefits icons: tint background, primary icon color */
