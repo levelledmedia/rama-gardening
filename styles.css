@@ -2062,8 +2062,8 @@ body.tall-header .header__nav-bar {
 
 .footer__links--split {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--sp-2) var(--sp-6);
+  grid-template-columns: 1fr;
+  gap: var(--sp-2);
 }
 
 .footer__links a {
@@ -2443,9 +2443,7 @@ body.tall-header .header__nav-bar {
     gap: var(--sp-8);
   }
 
-  .footer__links--split {
-    grid-template-columns: 1fr;
-  }
+
 
   .list-check li {
     flex-direction: row;
