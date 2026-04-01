@@ -2007,7 +2007,7 @@ body.tall-header .header__nav-bar {
 
 .footer__content {
   display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
   gap: var(--sp-12);
   margin-bottom: var(--sp-10);
 }
@@ -2149,7 +2149,7 @@ body.tall-header .header__nav-bar {
   }
 
   .footer__content {
-    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
   }
 
   .header__social {
